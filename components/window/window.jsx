@@ -5,12 +5,25 @@ import styles from './window.module.scss';
 
 export default function Window({ name, height, width, x, y, children }) {
     const { order, setOrder } = useWindowContext();
+    const isForeground = getForeground();
     const zIndex = order.find(x => x.name === name)?.order || 1;
     const [isDragging, setIsDragging] = useState(false);
     const dragParent = useRef();
 
     let clientX = useRef(0);
     let clientY = useRef(0);
+
+    function getForeground() {
+        const nums = order.map(({ order }) => order);
+        const max = Math.max(...nums);
+        const foregroundWindow = order.find(({ order }) => order === max);
+
+        if (!foregroundWindow) {
+            return false;
+        }
+
+        return foregroundWindow.name === name ? true : false;
+    }
 
     function onFocus() {
         setOrder(prev => {
@@ -151,7 +164,7 @@ export default function Window({ name, height, width, x, y, children }) {
 
     return (
         <div
-            className={styles['window']}
+            className={classNames(styles['window'], { [styles['foreground']]: isForeground })}
             style={{
                 zIndex,
                 width: `${width}px`,

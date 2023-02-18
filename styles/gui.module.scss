@@ -1,7 +1,18 @@
 $color: #4ec9b0;
+$color-30: #4ec9b030;
+$color-20: #4ec9b020;
+$color-10: #4ec9b010;
 
 #gui {
+    --color: #4ec9b0;
+    --color-30: #4ec9b030;
+    --color-20: #4ec9b020;
+    --color-10: #4ec9b010;
+    --alt: #40625B;
+    --alt-darker: #2D403C;
+
     font-family: Menlo, Monaco, 'Courier New', monospace;
+    font-size: 12px;
     color: $color;
     height: 100vh;
     width: 100vw;
@@ -16,8 +27,11 @@ $color: #4ec9b0;
         display: flex;
         gap: 16px;
         padding: 16px;
+        background-color: $color-10;
 
         .menu-option {
+            user-select: none;
+            cursor: default;
             font-size: 12px;
             height: 12px;
         }

@@ -1,16 +1,24 @@
 @import '../../styles/utilities.module.scss';
 
-$border-color: #4ec9b0;
-
 .window {
     position: fixed;
     border-radius: 10px;
     border-width: 4px;
-    border: solid 1px $border-color;
+    border: solid 1px var(--color);
     background-color: var(--background-color);
-    box-shadow: 
-    10px 10px 0px 0px $border-color,
-    10px 10px 0px 1px var(--background-color);
+    box-shadow:
+        5px 5px 0px 0px var(--color-20),
+        5px 5px 0px 1px var(--color);
+
+    &.foreground {
+        box-shadow:
+            7.5px 7.5px 0px 0px var(--alt-darker);
+            // 7.5px 7.5px 0px 1px var(--color);
+
+        .title-bar {
+            background-color: var(--color-20);
+        }
+    }
 
     .title-bar {
         user-select: none;
@@ -18,7 +26,7 @@ $border-color: #4ec9b0;
         align-items: center;
         height: 44px;
         padding: 16px;
-        border-bottom: solid 1px $border-color;
+        border-bottom: solid 1px var(--color);
 
         .button-ctr {
             display: flex;
@@ -26,14 +34,11 @@ $border-color: #4ec9b0;
             gap: 12px;
 
             .button {
-                // display: flex;
-                // align-items: center;
-                // justify-content: center;
                 padding: 0px;
                 height: 12px;
                 width: 12px;
                 border-radius: 50%;
-                background-color: $border-color;
+                background-color: var(--color);
                 border: none;
             }
         }
@@ -46,6 +51,7 @@ $border-color: #4ec9b0;
     }
 
     .main {
+        user-select: none;
         padding: 14px;
         height: calc(100% - 44px);
         border-radius: 10px;

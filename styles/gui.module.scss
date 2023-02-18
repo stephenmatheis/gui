@@ -1,0 +1,25 @@
+$color: #4ec9b0;
+
+#gui {
+    font-family: Menlo, Monaco, 'Courier New', monospace;
+    color: $color;
+    height: 100vh;
+    width: 100vw;
+    // filter: blur(.5px);
+    // background-image: linear-gradient(0deg, var(--background-color) 25%, #2e2e2e);
+    // background-size: 6px 6px;
+
+    .menu-bar {
+        width: 100vw;
+        height: 44px;
+        border-bottom: solid 1px $color;
+        display: flex;
+        gap: 16px;
+        padding: 16px;
+
+        .menu-option {
+            font-size: 12px;
+            height: 12px;
+        }
+    }
+}

@@ -6,8 +6,7 @@ export default function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+                <meta name="viewport" content="width=device-width, initial-scale=1,  viewport-fit=cover" />
             </Head>
             <WindowProvider>
                 <Component {...pageProps} />

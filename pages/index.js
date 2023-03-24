@@ -9,12 +9,12 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const [showLinkBackground, setShowLinkBackground] = useState(false);
     const speed = 70;
+    const shouldType = false;
 
     useEffect(() => {
-        if (loading) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.removeAttribute('style');
+        if (!loading) {
+            document.body.classList.remove('hidden');
+            setShowLinkBackground(true);
         }
 
         return () => document.body.removeAttribute('style');
@@ -28,20 +28,18 @@ export default function Home() {
             </Head>
             <div id={styles['resume']} className={classNames({ [styles['loading']]: loading })}>
                 <Header
+                    type={shouldType}
                     speed={speed}
                     showLinkBackground={showLinkBackground}
                     loading={loading}
                     setLoading={setLoading}
                 />
-                {
-                    !loading &&
-                    <Main
-                        speed={speed}
-                        type={true}
-                        showLinkBackground={showLinkBackground}
-                        setShowLinkBackground={setShowLinkBackground}
-                    />
-                }
+                <Main
+                    loading={loading}
+                    type={shouldType}
+                    speed={speed}
+                    showLinkBackground={showLinkBackground}
+                />
             </div>
         </>
     )

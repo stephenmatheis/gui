@@ -1,13 +1,22 @@
 @import '../../styles/utilities.module.scss';
+@import '../../styles/dark.theme.module.scss';
+
+$font-size: var(--font-size);
+$line-height: var(--line-height);
+$color: var(--color);
 
 .header {
     display: flex;
     flex-direction: column;
     width: 100%;
 
+    a {
+        width: fit-content;
+    }
+
     .profile {
-        font-size: 12px;
-        line-height: 18px;
+        font-size: $font-size;
+        line-height: $line-height;
 
         &:hover {
 
@@ -25,18 +34,18 @@
         &.link-background {
 
             .name {
-                border-bottom-color: #c586c0;
+                border-bottom-color: $name;
 
                 &::before {
-                    background-color: #c586c020;
+                    background-color: $name-20;
                 }
             }
 
             .title {
-                border-bottom-color: #4ec9b0;
+                border-bottom-color: $link;
 
                 &::before {
-                    background-color: #4ec9b020;
+                    background-color: $link-20;
                 }
             }
         }
@@ -49,6 +58,7 @@
 
             &::before {
                 content: '';
+                pointer-events: none;
                 position: absolute;
                 top: 6px;
                 left: 3px;
@@ -63,275 +73,77 @@
         }
 
         .name {
-            color: #c586c0;
+            color: $name;
             border-bottom-color: transparent;
         }
 
         .title {
-            color: #4ec9b0;
+            color: $link;
             white-space: nowrap;
             border-bottom-color: transparent;
         }
     }
+}
 
-    .loading-overlay {
-        position: fixed;
-        top: 0px;
-        left: 0px;
+.loading-overlay {
+    user-select: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    height: 100%;
+    width: 100vw;
+    padding: 0in .5in;
+    transition: background-color 490ms ease-in-out;
+    z-index: 10;
+
+    &.background-color {
+        background-color: var(--background-color);
+    }
+
+    @keyframes blink {
+
+        from,
+        to {
+            color: transparent;
+        }
+
+        50% {
+            color: inherit;
+        }
+    }
+
+    .hidden {
+        visibility: hidden;
+    }
+
+    .ctr {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: #000;
+        justify-content: flex-end;
+    }
 
-        // NOTE: In mobile Safari, 100vh is too tall (clips behind bottom tool bar)
-        height: 100%;
-        width: 100vw;
-        padding: 0in .5in;
-        transition: background-color 490ms ease-in-out;
+    .line-wrapper {
+        line-height: normal;
+    }
 
-        &.background-color {
-            background-color: var(--background-color);
-        }
+    .name,
+    .title {
+        line-height: unset;
+        transition: font-size 300ms ease-in-out;
+    }
 
-        .blink {
-            color: transparent;
-            animation: blink 1000ms step-end infinite;
-        }
+    .name {
+        color: #fff;
+        font-size: 12vmin;
+    }
 
-        @keyframes blink {
-
-            from,
-            to {
-                color: transparent;
-            }
-
-            50% {
-                color: inherit;
-            }
-        }
-
-        .hidden {
-            visibility: hidden;
-        }
-
-        .ctr {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-
-        .line-wrapper {
-            line-height: normal;
-        }
-
-        .name,
-        .title {
-            line-height: unset;
-            transition: font-size 300ms ease-in-out;
-        }
-
-        .name {
-            color: #fff;
-            font-size: 120px;
-        }
-
-        .title {
-            font-size: 120px;
-            // color: #808080;
-            color: dimgray;
-        }
-
-        // VIEWPORT: Widths
-
-        // Narrow desktop + tablet
-        @media screen and (max-width: 719px) {
-            .name {
-                font-size: 100px;
-            }
-
-            .title {
-                font-size: 100px;
-            }
-        }
-
-        // Extra narrow desktop + tablet
-        @media screen and (max-width: 600px) {
-            .name {
-                font-size: 90px;
-            }
-
-            .title {
-                font-size: 90px;
-            }
-        }
-
-        // Extra extra narrow desktop + tablet
-        @media screen and (max-width: 585px) {
-            .name {
-                font-size: 80px;
-            }
-
-            .title {
-                font-size: 80px;
-            }
-        }
-
-        // Extra extra narrow desktop + tablet
-        @media screen and (max-width: 550px) {
-            .name {
-                font-size: 70px;
-            }
-
-            .title {
-                font-size: 70px;
-            }
-        }
-
-        // Extra extra narrow desktop + tablet
-        @media screen and (max-width: 510px) {
-            .name {
-                font-size: 62px;
-            }
-
-            .title {
-                font-size: 62px;
-            }
-        }
-
-        // iphone 14 Pro Max
-        @media screen and (max-width: 430px) {
-            .name {
-                font-size: 60px;
-            }
-
-            .title {
-                font-size: 60px;
-            }
-        }
-
-        // iPhone 14 Pro
-        @media screen and (max-width: 414px) {
-            .name {
-                font-size: 58px;
-            }
-
-            .title {
-                font-size: 58px;
-            }
-        }
-
-        // iPhone 12
-        @media screen and (max-width: 410px) {
-            .name {
-                font-size: 54px;
-            }
-
-            .title {
-                font-size: 54px;
-            }
-        }
-
-        // iPhone 12
-        @media screen and (max-width: 389px) {
-            .name {
-                font-size: 50px;
-            }
-
-            .title {
-                font-size: 50px;
-            }
-        }
-
-        // Smaller phones
-        @media screen and (max-width: 369px) {
-            .name {
-                font-size: 45px;
-            }
-
-            .title {
-                font-size: 45px;
-            }
-        }
-
-        // Smallest phones
-        @media screen and (max-width: 340px) {
-            .name {
-                font-size: 40px;
-            }
-
-            .title {
-                font-size: 40px;
-            }
-        }
-
-        // Smallester phones
-        @media screen and (max-width: 313px) {
-            .name {
-                font-size: 35px;
-            }
-
-            .title {
-                font-size: 35px;
-            }
-        }
-
-        // Smallesterest phones
-        @media screen and (max-width: 286px) {
-            .name {
-                font-size: 30px;
-            }
-
-            .title {
-                font-size: 30px;
-            }
-        }
-
-        // Smallesterester phones
-        @media screen and (max-width: 260px) {
-            .name {
-                font-size: 25px;
-            }
-
-            .title {
-                font-size: 25px;
-            }
-        }
-
-        // 980
-        @media screen and (max-width: 980px) {
-            @media screen and (max-height: 705px) {
-                .name {
-                    font-size: 90px;
-                }
-
-                .title {
-                    font-size: 90px;
-                }
-            }
-
-            @media screen and (max-height: 525px) {
-                .name {
-                    font-size: 70px;
-                }
-
-                .title {
-                    font-size: 70px;
-                }
-            }
-        }
-
-        // 720
-        @media screen and (max-width: 500px) {
-            @media screen and (max-height: 705px) {
-                .name {
-                    font-size: 54px;
-                }
-
-                .title {
-                    font-size: 54px;
-                }
-            }
-        }
+    .title {
+        font-size: 12vmin;
+        color: $title;
     }
 }

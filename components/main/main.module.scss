@@ -1,52 +1,64 @@
 @import '../../styles/utilities.module.scss';
+@import '../../styles/dark.theme.module.scss';
 
-$line-height: 18px;
-$gray: #808080;
-$dark-pink: #da70d6;
-$dark-blue: #569cd6;
-$blue: #9cdcfe;
-$yellow: #d7ba7d;
-$orange: #ce9178;
-$gold: #ffd700;
-$lime: #4ec9b0;
-$light-blue: #4fc1ff;
+$font-size: var(--font-size);
+$line-height: var(--line-height);
 $color: var(--color);
 
 .main {
     display: flex;
-    gap: 36px;
+    justify-content: space-between;
+    gap: 4ch;
+    opacity: 0;
+
+    &.loading {
+        opacity: 0;
+    }
 
     &.link-background {
+        animation: fade-in 450ms ease-in-out 0ms forwards;
 
         .link-ctr {
 
             .link-text {
-                border-bottom-color: #4ec9b0;
+                border-bottom-color: $link;
 
                 &::before {
-                    background-color: #4ec9b020;
+                    background-color: $link-20;
                 }
             }
         }
     }
 
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
     * {
-        font-size: 12px;
+        font-size: $font-size;
         line-height: $line-height;
     }
 
     .right {
         display: flex;
         flex-direction: column;
-        gap: $line-height;
+        gap: calc($line-height * 2);
+        max-width: 34ch;
     }
 
-    .left {
-        flex: 2;
+    .ctr:not(:only-child) {
+        margin-bottom: $line-height;
     }
 
     .comment {
-        color: #6a9955;
+        color: $comment;
+        margin-bottom: $line-height;
     }
 
     .job {
@@ -57,15 +69,11 @@ $color: var(--color);
         }
 
         .title {
-            color: #569cd6;
+            color: $heading;
 
             .company {
-                color: #dcdcaa
+                color: $company;
             }
-        }
-
-        .date {
-            color: #9cdcfe;
         }
 
         .lines {
@@ -74,38 +82,37 @@ $color: var(--color);
 
             .line {
                 display: flex;
-                color: #ce9178;
+                color: $text;
             }
         }
     }
 
     #skills {
-        .skill {
+
+        .groups-ctr {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: $line-height;
 
-            .name {
-                color: #569cd6;
-            }
+            .group {
+                .name {
+                    color: $heading;
+                }
 
-            .years {
-                color: #4fc1ff;
-            }
-        }
+                .items-ctr {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0ch 1ch;
 
-    }
-
-    #education {
-        .college {
-            color: #569cd6;
-        }
-
-        .major {
-            .date {
-                color: #9cdcfe;
-                ;
+                    .item {
+                        display: inline-block;
+                        border-radius: 4px;
+                        color: $skill;
+                    }
+                }
             }
         }
+
     }
 
     #contact {
@@ -114,29 +121,46 @@ $color: var(--color);
             flex-direction: column;
             white-space: nowrap;
             gap: $line-height;
-            margin-top: $line-height;
-
-            a {
-
-                &,
-                &:hover {
-                    color: #4ec9b0;
-                }
-            }
-
         }
     }
 
+    #projects {
+        .project-ctr {
+            display: flex;
+            flex-direction: column;
+            gap: $line-height;
+
+            &:not(:last-child) {
+                margin-bottom: $line-height;
+            }
+        }
+    }
+
+    .date {
+        color: $date;
+
+        .location {
+            // color: var(--color);
+            color: $muted;
+        }
+    }
+
+    .emoji {
+        font-size: $line-height;
+        margin-right: 1ch;
+    }
+
+
     .link-ctr {
-        height: 18px;
+        height: $line-height;
 
         a {
             display: flex;
-        }
 
-        .emoji {
-            font-size: 18px;
-            margin-right: 9px;
+            &,
+            &:hover {
+                color: $link;
+            }
         }
 
         .link-text {
@@ -152,9 +176,9 @@ $color: var(--color);
                 }
             }
 
-            // TODO: Animate in - shows up as full width while still typing in
             &::before {
                 content: '';
+                pointer-events: none;
                 position: absolute;
                 top: 6px;
                 left: 3px;
@@ -170,14 +194,26 @@ $color: var(--color);
     }
 
     @media screen {
-        & {
-            display: flex;
-            flex-direction: row-reverse;
+        flex-direction: row-reverse;
 
-            @media (max-width: 675px) {
-                & {
-                    flex-direction: column;
-                }
+        // NOTE: 
+        // If the viewport is less than 912px wide, the combined left and right 
+        // padding and margin will be less than 96px (1 inch) on either side.
+        // So, we'll set `flex-direction` to `column` and `max-width` to unset
+        // because it can now span the full width of the page.  
+        //
+        // There is a corresponding media query in `styles/resume.module.scss` that 
+        // replaces the 8.5in width with `fit-content` and add `align-items: center`
+        // which horizontally centers main. 
+        // 
+        // The main container may now be less than 720px so the page  `width` is
+        // set to `fit-content`.
+        @media (max-width: 911px) {
+            flex-direction: column;
+            gap: calc($line-height * 2);
+
+            .right {
+                max-width: unset;
             }
         }
     }
